@@ -33,6 +33,26 @@
   }
 }
 
+@keyframes home-aurora-drift {
+  0% {
+    transform: translate3d(-4%, -2%, 0) scale(1.02);
+    opacity: 0.88;
+  }
+  100% {
+    transform: translate3d(4%, 2%, 0) scale(1.05);
+    opacity: 1;
+  }
+}
+
+/* Layered meshes behind the horizontal home strip; parallax X comes from inline transform on the wrapper. */
+.home-panels-aurora {
+  background:
+    radial-gradient(ellipse 90% 75% at 18% 42%, color-mix(in srgb, var(--color-accent) 24%, transparent), transparent 58%),
+    radial-gradient(ellipse 80% 70% at 82% 62%, color-mix(in srgb, var(--color-primary) 20%, transparent), transparent 52%),
+    radial-gradient(ellipse 65% 55% at 48% 12%, color-mix(in srgb, var(--color-surface-muted) 55%, transparent), transparent 60%);
+  background-size: 125% 125%;
+}
+
 @keyframes menu-panel-in {
   from {
     opacity: 0;
@@ -55,6 +75,26 @@
   }
 }
 
+@keyframes home-chevron-left {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(-5px);
+  }
+}
+
+@keyframes home-chevron-right {
+  0%,
+  100% {
+    transform: translateX(0);
+  }
+  50% {
+    transform: translateX(5px);
+  }
+}
+
 @media (prefers-reduced-motion: no-preference) {
   .menu-panel-motion {
     animation: menu-panel-in 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
@@ -64,11 +104,33 @@
     transform-origin: left center;
     animation: accent-bar 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
   }
+
+  .home-panels-aurora {
+    animation: home-aurora-drift 52s ease-in-out infinite alternate;
+    will-change: transform, opacity;
+  }
+
+  .animate-home-chevron-left {
+    animation: home-chevron-left 1.4s ease-in-out infinite;
+  }
+
+  .animate-home-chevron-right {
+    animation: home-chevron-right 1.4s ease-in-out infinite;
+  }
 }
 
 @layer utilities {
   .skip-link {
     @apply sr-only rounded-md bg-surface px-4 py-2 text-sm font-medium text-foreground outline-none ring-ring focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:inline-block focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background motion-safe:transition;
+  }
+
+  .scrollbar-none {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+  }
+
+  .scrollbar-none::-webkit-scrollbar {
+    display: none;
   }
 }
 

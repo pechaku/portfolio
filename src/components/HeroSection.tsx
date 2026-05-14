@@ -8,12 +8,28 @@ const btnPrimary =
 const btnGhost =
   "inline-flex min-h-11 cursor-pointer items-center justify-center rounded-md border border-border bg-surface px-5 py-2.5 text-sm font-medium text-foreground transition-colors duration-200 hover:border-accent/45 hover:bg-secondary motion-safe:active:translate-y-px motion-safe:transition-transform motion-safe:duration-150 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-accent focus-visible:ring-offset-2";
 
-export function HeroSection() {
+type HeroSectionProps = {
+  variant?: "page" | "panel";
+};
+
+export function HeroSection({ variant = "page" }: HeroSectionProps) {
+  const isPanel = variant === "panel";
+
+  const innerLayout = isPanel
+    ? "mx-auto flex w-full max-w-3xl flex-col items-center text-center"
+    : "mx-auto max-w-6xl";
+
   return (
-    <section className="border-b border-border bg-surface/60 px-4 py-16 backdrop-blur-sm sm:py-24 lg:py-28">
-      <div className="mx-auto max-w-6xl">
+    <section
+      className={
+        isPanel
+          ? "flex min-h-0 flex-1 flex-col justify-center bg-transparent px-6 py-10 sm:px-8 sm:py-16"
+          : "border-b border-border bg-surface/60 px-4 py-16 backdrop-blur-sm sm:py-24 lg:py-28"
+      }
+    >
+      <div className={innerLayout}>
         <Reveal when="mount" delay={0} distance="sm">
-          <div className="flex items-center gap-3">
+          <div className={`flex items-center gap-3 ${isPanel ? "justify-center" : ""}`}>
             <span className="hero-accent-bar h-1.5 w-14 shrink-0 rounded-full bg-accent/90" aria-hidden />
             <p className="text-sm font-medium uppercase tracking-wide text-muted-foreground">
               Full-stack software developer · {site.location.split(" · ")[0]}
@@ -28,7 +44,9 @@ export function HeroSection() {
         </Reveal>
 
         <Reveal when="mount" delay={170} distance="md">
-          <p className="mt-4 max-w-2xl text-lg leading-relaxed text-muted-foreground sm:text-xl">
+          <p
+            className={`mt-4 text-lg leading-relaxed text-muted-foreground sm:text-xl ${isPanel ? "max-w-2xl text-balance" : "max-w-2xl"}`}
+          >
             I build SaaS, integrations, and hardware-adjacent systems. Strong on{" "}
             <span className="font-medium text-foreground">.NET/Azure</span>, React/Blazor-class SPAs, and Python/Flask, with
             a bias for shipping clarity in small agile teams.
@@ -39,7 +57,12 @@ export function HeroSection() {
           <p className="mt-4 text-sm font-medium text-foreground">{site.availabilityNote}</p>
         </Reveal>
 
-        <Reveal when="mount" delay={300} distance="sm" className="mt-8 flex flex-wrap gap-3">
+        <Reveal
+          when="mount"
+          delay={300}
+          distance="sm"
+          className={`mt-8 flex flex-wrap gap-3 ${isPanel ? "justify-center" : ""}`}
+        >
           <Link to="/projects" className={btnPrimary}>
             View projects
           </Link>

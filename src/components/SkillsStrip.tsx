@@ -19,21 +19,38 @@ const skills = [
   },
 ];
 
-export function SkillsStrip() {
+type SkillsStripProps = {
+  variant?: "page" | "panel";
+};
+
+export function SkillsStrip({ variant = "page" }: SkillsStripProps) {
+  const isPanel = variant === "panel";
+
   return (
-    <section className="border-b border-border bg-surface-muted/50 px-4 py-14 sm:py-16" aria-labelledby="skills-heading">
-      <div className="mx-auto max-w-6xl">
+    <section
+      className={
+        isPanel
+          ? "flex min-h-0 flex-1 flex-col justify-center border-0 bg-transparent px-6 py-10 sm:px-8 sm:py-16"
+          : "border-b border-border bg-surface-muted/50 px-4 py-14 sm:py-16"
+      }
+      aria-labelledby="skills-heading"
+    >
+      <div
+        className={`mx-auto w-full max-w-6xl ${isPanel ? "min-h-0 max-h-full overflow-y-auto px-2 pb-2 text-center sm:px-4" : ""}`}
+      >
         <Reveal when="scroll" delay={0} distance="sm">
           <h2 id="skills-heading" className="font-heading text-2xl font-semibold tracking-tight text-foreground sm:text-3xl">
             What I ship
           </h2>
         </Reveal>
         <Reveal when="scroll" delay={70} distance="sm">
-          <p className="mt-2 max-w-2xl text-muted-foreground">
+          <p className={`mt-2 text-muted-foreground ${isPanel ? "mx-auto max-w-2xl text-balance" : "max-w-2xl"}`}>
             Focused stacks for teams who optimize for shipping and owning production.
           </p>
         </Reveal>
-        <ul className="mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4">
+        <ul
+          className={`mt-10 grid gap-6 sm:grid-cols-2 lg:grid-cols-4 ${isPanel ? "mx-auto max-w-5xl justify-items-stretch lg:max-w-6xl" : ""}`}
+        >
           {skills.map((s, i) => (
             <li key={s.title} className="h-full">
               <Reveal when="scroll" delay={i * 80} distance="sm" className="h-full">

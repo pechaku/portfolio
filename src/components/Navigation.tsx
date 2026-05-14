@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useLocation } from "react-router-dom";
 import { site } from "@/config/site";
 import { useScrolledPast } from "@/hooks/useScrolledPast";
 
@@ -10,9 +10,15 @@ function navClass(isActive: boolean) {
   return `${navLinkBase} ${isActive ? "text-primary" : "text-muted-foreground hover:text-foreground"}`;
 }
 
-export function Navigation() {
+type NavigationProps = {
+  homeScrollLeft?: number;
+};
+
+export function Navigation({ homeScrollLeft = 0 }: NavigationProps) {
   const [open, setOpen] = useState(false);
-  const elevated = useScrolledPast(10);
+  const { pathname } = useLocation();
+  const windowPast = useScrolledPast(10);
+  const elevated = pathname === "/" ? homeScrollLeft > 10 : windowPast;
 
   return (
     <header
