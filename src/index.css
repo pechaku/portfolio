@@ -1,0 +1,101 @@
+@import "tailwindcss";
+@plugin "@tailwindcss/typography";
+
+@theme {
+  --font-sans: "DM Sans", ui-sans-serif, system-ui, sans-serif;
+  --font-heading: "Space Grotesk", ui-sans-serif, system-ui, sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, monospace;
+
+  /* Ag-tech: linen fields, olive/sage, muted terracotta/bronze accents */
+  --color-background: #f2ede3;
+  --color-surface: #faf7f0;
+  --color-surface-muted: #e6dfd2;
+  --color-border: #cfc6b6;
+  --color-foreground: #1f1c16;
+  --color-muted-foreground: #585245;
+  --color-primary: #4a5838;
+  --color-primary-foreground: #f7f4eb;
+  --color-secondary: #dde3d2;
+  --color-secondary-foreground: #2f341f;
+  --color-accent: #a67c52;
+  --color-ring: #8f6a45;
+  --color-success: #5a6b47;
+  --color-destructive: #b34432;
+  --color-ring-offset-background: #faf7f0;
+}
+
+@keyframes bg-drift {
+  0% {
+    background-position: 0% 30%;
+  }
+  100% {
+    background-position: 100% 70%;
+  }
+}
+
+@keyframes menu-panel-in {
+  from {
+    opacity: 0;
+    transform: translateY(-8px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes accent-bar {
+  from {
+    opacity: 0.45;
+    transform: scaleX(0.25);
+  }
+  to {
+    opacity: 1;
+    transform: scaleX(1);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .menu-panel-motion {
+    animation: menu-panel-in 0.24s cubic-bezier(0.22, 1, 0.36, 1) both;
+  }
+
+  .hero-accent-bar {
+    transform-origin: left center;
+    animation: accent-bar 0.85s cubic-bezier(0.22, 1, 0.36, 1) 0.12s both;
+  }
+}
+
+@layer utilities {
+  .skip-link {
+    @apply sr-only rounded-md bg-surface px-4 py-2 text-sm font-medium text-foreground outline-none ring-ring focus:not-sr-only focus:fixed focus:left-4 focus:top-4 focus:z-[100] focus:inline-block focus:ring-2 focus:ring-ring focus:ring-offset-2 focus:ring-offset-background motion-safe:transition;
+  }
+}
+
+@layer base {
+  body {
+    @apply bg-background font-sans text-foreground antialiased;
+    background-image: linear-gradient(180deg, #f5f0e6 0%, #ebe3d4 100%);
+    background-repeat: no-repeat;
+    background-attachment: scroll;
+    min-height: 100%;
+  }
+
+  @media (prefers-reduced-motion: no-preference) {
+    body {
+      background-image: linear-gradient(125deg, #f7f3ea 0%, #ebe3d4 45%, #e4dbd0 75%, #f2ede6 100%);
+      background-size: 200% 200%;
+      animation: bg-drift 38s ease-in-out infinite alternate;
+    }
+  }
+
+  @media (prefers-reduced-motion: reduce) {
+    *,
+    *::before,
+    *::after {
+      animation-duration: 0.01ms !important;
+      animation-iteration-count: 1 !important;
+      transition-duration: 0.01ms !important;
+    }
+  }
+}

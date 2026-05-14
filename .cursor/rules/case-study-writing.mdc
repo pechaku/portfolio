@@ -1,0 +1,28 @@
+---
+description: Voice and structure for portfolio case studies and project copy
+globs: src/data/projects.ts,src/pages/ProjectDetailPage.tsx,src/pages/AboutPage.tsx,src/pages/HomePage.tsx,src/components/HeroSection.tsx,src/components/SkillsStrip.tsx
+alwaysApply: false
+---
+
+# Case study and project copy
+
+When editing portfolio narratives (especially `src/data/projects.ts`):
+
+- Skip generic intros (“In today’s fast-paced world…”, “This article will explore…”).
+- Do not over-explain obvious context; tie text to this project and this stack.
+- Vary sentence length: mix short lines with longer, specific ones.
+- Prefer concrete detail from the work (tools, constraints, edge cases, user types). **Do not invent metrics, survey results, or attributed quotes.** Use facts from the résumé or repo only.
+- Include small, honest anecdotes only when grounded in documented facts (missteps, tradeoffs, surprises implied by the real timeline or stack).
+- State opinions where appropriate: what you’d do differently, what you’re proud of, what you disagreed with.
+- Avoid corporate buzzwords (“synergize”, “leverage”, “empower”, “cutting-edge”) unless unavoidable.
+- Do not repeat the same phrases across sections (“This project taught me…”, “I learned a lot about…”).
+- Do not default every project to a symmetric challenge / solution / outcome rhythm; let narrative breathe.
+- Allow a natural voice (contractions, a short aside in parentheses) if it matches how you usually write.
+- Every paragraph or bullet must add new information; cut filler and restatements.
+- Show decision process briefly: options considered, what was discarded and why. Pick a direction; avoid empty “both sides” hedging.
+- Use bullets sparingly; prefer short paragraphs except where lists truly help (e.g. tech inventory).
+- Break templates: vary section **titles** and (when useful) **section order** via `sectionTitles`, `sectionOrder`, and `hiddenSections` on `ProjectCaseStudy`.
+- Add one lived-in detail per project when the facts support it (a real constraint, a named workflow, a deployment reality).
+- Keep endings short and non-cliché; no “In conclusion.”
+- **Do not use the em dash character (`—`).** Rephrase with commas, periods, parentheses, or “to” for ranges.
+- Avoid “need X, not Y” phrasing; say what you optimize for instead.
